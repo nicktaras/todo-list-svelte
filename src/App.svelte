@@ -18,6 +18,11 @@
 		todoList = todoList;
 		localStorage.setItem("todos", JSON.stringify(todoList));
 	}
+
+	function changeStatus(index) {
+		todoList[index].status = !todoList[index].status;
+		localStorage.setItem("todos", JSON.stringify(todoList));
+	}
 </script>
 
 <style>
@@ -32,7 +37,10 @@
 </form>
 
 {#each todoList as item, index}
-	<input bind:checked={item.status} type="checkbox" />
+	<input
+		on:click={() => changeStatus(index)}
+		bind:checked={item.status}
+		type="checkbox" />
 	<span class:checked={item.status}>{item.text}</span>
 	<span style="cursor: pointer" on:click={() => removeFromList(index)}>🗑</span>
 	<br />
